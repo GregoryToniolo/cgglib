@@ -73,9 +73,11 @@ Note: there are no external dependencies needed;only a c99 capable compiler is r
 ### Same as cplex_addv but subtracts the complex number instead of adding it. Works for any n-dimensional vectors and is more efficient than matrix multiplication.
 ## FAQ
 
-#### Can i use it with cglm for more efficient rotations?
+#### Can i use it with cglm for more efficient operations?
 
-Yes, it has been developed to work together with cglm not against it and to optimize certain operations.
+Yes, it has been developed to work together with cglm not against it and to provide more optimized versions certain operations.
+For 2d vectors and matrices this uses complex numbers as a full replacement for cglm. For higher dimensional vectors it simply
+provides more optimized versions of some operations.
 
 #### Does it work with n-dimensional vectors?
 
