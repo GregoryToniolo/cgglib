@@ -5,7 +5,7 @@ A single header minimalist graphics/opengl math library with a focus on simplici
 ## Installation
 
 Simply clone the github repo and copy the header file to your project directory.
-Note: there are no external dependencies needed;only a c99 capable compiler is required.
+Note: there are no external dependencies needed. Only a c99 capable compiler is required.
 
 ```bash
     git clone https://github.com/GregoryToniolo/cgglib 
