@@ -1,21 +1,3 @@
-/*
-    Cgglib 
-    Copyright (C) 2025  Gregory Toniolo
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
-
 typedef struct { 
     float r, i;
 }cplex;
@@ -78,7 +60,7 @@ static inline float cplex_abs2(const cplex c)
 //angle of a complex number
 static inline float cplex_arg(const cplex c, float(*atan2_ptr)(float, float))
 {
-    return atan2_ptr(c.r, c.i);
+    return atan2_ptr(c.i, c.r);
 }
 
 //inverse of a complex number
@@ -141,15 +123,30 @@ static inline cplex cplex_projv2(const float * restrict v, const unsigned int ax
 }
 
 //translate a vector by a complex number
-static inline void cplex_addv(const cplex c, const float * restrict src, const float * restrict dst, const unsigned int axis1, const unsigned int axis2)
+static inline void cplex_addv(const cplex c, const float * restrict src, float * restrict dst, const unsigned int axis1, const unsigned int axis2)
 {
     dst[axis1]=c.r+src[axis1];
     dst[axis2]=c.i+src[axis2];
 }
 
 //subtract a complex number from a vector
-static inline void cplex_subv(const cplex c, const float * restrict src, const float * restrict dst, const unsigned int axis1, const unsigned int axis2)
+static inline void cplex_subv(const cplex c, const float * restrict src, float * restrict dst, const unsigned int axis1, const unsigned int axis2)
 {
     dst[axis1]=src[axis1]-c.r;
     dst[axis2]=src[axis2]-c.i;
+}
+
+//d/dx(f(x))
+static inline float d_dx(const float x, float (*f)(float), const float h)
+{
+    return (f(x+h)-f(x-h))/(2*h);
+}
+
+//definite integral from a to b of f(x) dx
+//DONT USE THIS FOR NATURAL LOG OR OTHER FUNCTIONS
+//uses gauss-legendre 2 point formula
+static inline float defint(const float a, const float b, float (*f)(float))
+{
+    float mid = (a+b)/2,offset=(b-a)*0.28867513459;//1/(2sqrt3)
+    return ((b-a)/2)*(f(mid+offset)+f(mid-offset));
 }
