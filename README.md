@@ -70,7 +70,13 @@ Note: there are no external dependencies needed. Only a c99 capable compiler is 
 #### Takes a source vector, a destination vector, a complex number and 2 axes and translates the 2 axes of the source vector by the complex number and stores the result in the destination vector. Works for any n-dimensional vectors and is more efficient than matrix multiplication.
 
 ### cplex_subv
-### Same as cplex_addv but subtracts the complex number instead of adding it. Works for any n-dimensional vectors and is more efficient than matrix multiplication.
+#### Same as cplex_addv but subtracts the complex number instead of adding it. Works for any n-dimensional vectors and is more efficient than matrix multiplication.
+
+### d_dx
+#### Takes a point, a function and a precision value (h),  computes derivative of a single real variable function at a point using the provided value of h for precision.
+
+### defint
+#### Takes a starting point, an ending point, and a function, integrates the function from the starting point to the ending point.
 ## FAQ
 
 #### Can i use it with cglm for more efficient operations?
