@@ -24,7 +24,7 @@ static inline cplex cplex_mul(const cplex a, const cplex b)
 static inline cplex cplex_div(const cplex a, const cplex b)
 {
     const float abs2 = b.r*b.r+b.i*b.i;
-    return (cplex){(a.r*b.r-a.i*b.i)/abs2, (a.r*b.i+a.i*b.r)/abs2};
+    return (cplex){(a.r*b.r+a.i*b.i)/abs2, (a.r*b.i-a.i*b.r)/abs2};
 }
 
 //s(a+bi)
@@ -55,6 +55,13 @@ static inline float cplex_abs(const cplex c, float(*sqrtf_ptr)(float))
 static inline float cplex_abs2(const cplex c)
 {
     return c.r*c.r+c.i*c.i;
+}
+
+// distance between 2 complex numbers
+static inline float cplex_dist(const cplex a, const cplex b, float(*sqrtf_ptr)(float))
+{
+    float xc = a.r - b.r, yc = a.i - b.i;
+    return sqrtf_ptr(xc*xc+yc*yc);
 }
 
 //angle of a complex number
@@ -137,7 +144,7 @@ static inline void cplex_subv(const cplex c, const float * restrict src, float *
 }
 
 //d/dx(f(x))
-static inline float d_dx(const float x, float (*f)(float), const float h)
+static inline float d_dx(const float x, float(*f)(float), const float h)
 {
     return (f(x+h)-f(x-h))/(2*h);
 }
@@ -145,7 +152,7 @@ static inline float d_dx(const float x, float (*f)(float), const float h)
 //definite integral from a to b of f(x) dx
 //DONT USE THIS FOR NATURAL LOG OR OTHER FUNCTIONS
 //uses gauss-legendre 2 point formula
-static inline float defint(const float a, const float b, float (*f)(float))
+static inline float defint(const float a, const float b, float(*f)(float))
 {
     float mid = (a+b)/2,offset=(b-a)*0.28867513459;//1/(2sqrt3)
     return ((b-a)/2)*(f(mid+offset)+f(mid-offset));
