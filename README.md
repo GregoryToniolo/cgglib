@@ -39,6 +39,9 @@ Note: there are no external dependencies needed. Only a c99 capable compiler is 
 ###  cplex_abs2 
 #### Takes a complex number and returns its absolute value (norm) squared.
 
+### cplex_dist
+#### Takes 2 complex numbers and returns their distance.
+
 ### cplex_arg
 #### Takes a complex number and returns the angle it forms with the positive real axis.  Requires a function to be defined for the arctangent of a vector (atan2).
 
